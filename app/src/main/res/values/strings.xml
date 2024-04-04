@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Ezlo Case Study</string>
+    <string name="sn">SN:</string>
+    <string name="device">Device Image</string>
+    <string name="arrow">Arrow</string>
+    <string name="profilePhoto">Profile Photo</string>
+    <string name="my_name">Olexander Zhuk</string>
+    <string name="mac_address">MAC Address:</string>
+    <string name="firmware">Firmware:</string>
+    <string name="model">Model:</string>
+    <string name="edit_item">Edit item</string>
+    <string name="save">Save</string>
+    <string name="refresh">Refresh</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+</resources>

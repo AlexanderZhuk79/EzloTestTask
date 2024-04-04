@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/devicesListFragment">
+
+    <fragment
+        android:id="@+id/devicesListFragment"
+        android:name="com.ezlo.testtask.ui.devices_list.DevicesListFragment"
+        android:label="Devices list" >
+        <action
+            android:id="@+id/action_devicesListFragment_to_deviceFragment"
+            app:destination="@id/deviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deviceFragment"
+        android:name="com.ezlo.testtask.ui.device.DeviceFragment"
+        android:label="Device details" >
+        <argument
+            android:name="PK_DEVICE"
+            app:argType="com.ezlo.testtask.db.model.DeviceDbModel"
+            />
+        <argument
+            android:name="EDIT_MODE"
+            app:argType="boolean"
+            />
+    </fragment>
+</navigation>

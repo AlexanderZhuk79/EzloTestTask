@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.ezlo.testtask.ui.device.DeviceViewModel">
+        </variable>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivDevice"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/device"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:text="@{viewModel.deviceName}"
+            android:visibility="@{viewModel.editMode ? View.GONE : View.VISIBLE}"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@+id/ivDevice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivDevice"
+            app:layout_constraintBottom_toBottomOf="@+id/ivDevice"/>
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:lines="1"
+            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:text="@={viewModel.deviceName}"
+            android:visibility="@{viewModel.editMode ? View.VISIBLE : View.GONE}"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@+id/ivDevice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivDevice"
+            app:layout_constraintBottom_toBottomOf="@+id/ivDevice"/>
+
+
+
+        <TextView
+            android:id="@+id/tvSN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sn"
+            android:layout_marginTop="24dp"
+            android:textSize="@dimen/device_view_font_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivDevice" />
+
+        <TextView
+            android:id="@+id/tvSnNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel.mDevice.pkDevice)}"
+            android:textSize="@dimen/device_view_font_size"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSN"
+            app:layout_constraintStart_toEndOf="@+id/tvSN"
+            app:layout_constraintTop_toTopOf="@+id/tvSN" />
+
+        <TextView
+            android:id="@+id/tvMac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mac_address"
+            android:textSize="@dimen/device_view_font_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSnNum" />
+
+        <TextView
+            android:id="@+id/tvMacValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.mDevice.macAddress}"
+            android:textSize="@dimen/device_view_font_size"
+            app:layout_constraintBottom_toBottomOf="@+id/tvMac"
+            app:layout_constraintStart_toEndOf="@+id/tvMac"
+            app:layout_constraintTop_toTopOf="@+id/tvMac" />
+
+        <TextView
+            android:id="@+id/tvFirmware"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/firmware"
+            android:layout_marginTop="24dp"
+            android:textSize="@dimen/device_view_font_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMac" />
+
+        <TextView
+            android:id="@+id/tvFirmwareValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.mDevice.firmware}"
+            android:textSize="@dimen/device_view_font_size"
+            app:layout_constraintBottom_toBottomOf="@+id/tvFirmware"
+            app:layout_constraintStart_toEndOf="@+id/tvFirmware"
+            app:layout_constraintTop_toTopOf="@+id/tvFirmware" />
+
+        <TextView
+            android:id="@+id/tvModel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/model"
+            android:textSize="@dimen/device_view_font_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvFirmware" />
+
+        <TextView
+            android:id="@+id/tvModelValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.mDevice.platform}"
+            android:textSize="@dimen/device_view_font_size"
+            app:layout_constraintBottom_toBottomOf="@+id/tvModel"
+            app:layout_constraintStart_toEndOf="@+id/tvModel"
+            app:layout_constraintTop_toTopOf="@+id/tvModel" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:onClick="@{()->viewModel.saveChanges()}"
+            android:visibility="@{viewModel.saveEnabled ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvModel" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
