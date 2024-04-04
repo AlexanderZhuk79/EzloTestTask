@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
@@ -62,8 +63,7 @@ class DeviceFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (viewModel.editMode) {
-            binding.etName.requestFocus()
-            showKeyboard(view)
+            showKeyboard(binding.etName)
         }
     }
 
@@ -73,22 +73,12 @@ class DeviceFragment: Fragment() {
         imm.hideSoftInputFromWindow(binding.etName.windowToken, 0)
     }
 
-
-    private fun showKeyboard(view: View) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            ViewCompat.getWindowInsetsController(requireView())
-                ?.show(WindowInsetsCompat.Type.ime())
-        } else {
-            val focusedView = view.findFocus() ?: view.apply { requestFocus() }
+    private fun showKeyboard(view: View){
+        if (view.requestFocus()) {
             val imm =
                 (context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
-            val isShowSucceeded =
-                imm.showSoftInput(focusedView, InputMethodManager.SHOW_IMPLICIT)
-            if (!isShowSucceeded) {
-                imm.toggleSoftInputFromWindow(
-                    view.windowToken, 0, InputMethodManager.HIDE_IMPLICIT_ONLY
-                )
-            }
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
         }
     }
+
 }
